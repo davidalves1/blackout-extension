@@ -4,6 +4,22 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 });
 
+async function showErrorNotification() {
+  await chrome.notifications.create(
+    'errorNotification',
+    {
+      type: 'basic',
+      iconUrl: 'assets/icon-64.png',
+      title: 'Opss..',
+      message: 'This page cannot use dark theme :('
+    }
+  );
+
+  setTimeout(async () => {
+    await chrome.notifications.clear('errorNotification');
+  }, 4000);
+}
+
 chrome.action.onClicked.addListener(async (tab) => {
   if (tab.url.startsWith('http')) {
     const prevState = await chrome.action.getBadgeText({ tabId: tab.id });
@@ -26,18 +42,6 @@ chrome.action.onClicked.addListener(async (tab) => {
       });
     }
   } else {
-    await chrome.notifications.create(
-      'errorFeedback',
-      {
-        type: 'basic',
-        iconUrl: 'assets/icon-64.png',
-        title: 'Opss..',
-        message: 'This page cannot use dark theme :('
-      }
-    );
-
-    setTimeout(async () => {
-      await chrome.notifications.clear('errorFeedback');
-    }, 4000);
+    showErrorNotification();
   }
 });
