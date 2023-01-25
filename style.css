@@ -1,0 +1,8 @@
+body {
+  filter: invert(1);
+  background: #eee;
+}
+
+body :is(img) {
+  filter: invert(1);
+}
