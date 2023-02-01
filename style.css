@@ -1,8 +1,12 @@
-body {
-  filter: invert(1);
-  background: #eee;
+html {
+  filter: invert(1) !important;
 }
 
-body :is(img) {
-  filter: invert(1);
+/* body:nth-of-type(1) header:first-of-type {
+  background-color: #d33 !important;
+  color: #333 !important;
+} */
+
+img, svg > path {
+  filter: invert(1) !important;
 }
